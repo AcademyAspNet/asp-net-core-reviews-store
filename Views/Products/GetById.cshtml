@@ -1,0 +1,28 @@
+﻿@model Product
+
+<table class="table table-stri">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Наименование свойства</th>
+            <th scope="col">Значение свойства</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Название товара</td>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Описание товара</td>
+            <td>@(Model.Description ?? "Нет описания")</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Цена товара</td>
+            <td>@Model.Price</td>
+        </tr>
+    </tbody>
+</table>

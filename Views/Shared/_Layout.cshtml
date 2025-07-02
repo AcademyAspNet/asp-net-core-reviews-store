@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    ViewBag.Brand = "Веб-приложение";
+}
+
+<!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width" />
@@ -10,7 +14,7 @@
         <header>
             <partial name="_NavigationPartial" />
         </header>
-        <main>
+        <main class="container-md">
             @RenderBody()
         </main>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

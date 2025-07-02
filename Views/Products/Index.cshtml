@@ -1,0 +1,12 @@
+﻿@model List<Product>
+
+<ol>
+    @foreach (Product product in Model)
+    {
+        <li>
+            <a asp-controller="Products" asp-action="GetById" asp-route-id="@product.Id">
+                @product.Name
+            </a>
+        </li>
+    }
+</ol>

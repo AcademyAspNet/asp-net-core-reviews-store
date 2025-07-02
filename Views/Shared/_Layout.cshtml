@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Brand = "Веб-приложение";
+    ViewBag.HasBreadcrumb = IsSectionDefined("Breadcrumb");
 }
 
 <!DOCTYPE html>
@@ -13,6 +14,36 @@
     <body>
         <header>
             <partial name="_NavigationPartial" />
+            <div class="container-md">
+                @{
+                    List<BreadcrumbItem> breadcrumbItems = new List<BreadcrumbItem>()
+                    {
+                        new BreadcrumbItem("Главная страница", "Home", "Index"),
+                        new BreadcrumbItem("Главная страница", "Home", "Index"),
+                        // new BreadcrumbItem("Главная страница", "Home", "Index")
+                    };
+                }
+
+                @if (ViewBag.HasBreadcrumb)
+                {
+                    @RenderSection("Breadcrumb", false)
+                }
+                else
+                {
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            @foreach (BreadcrumbItem item in breadcrumbItems)
+                            {
+                                <li class="breadcrumb-item">
+                                    <a asp-controller="@item.ControllerName" asp-action="@item.ActionName">
+                                        @item.Text
+                                    </a>
+                                </li>
+                            }
+                        </ol>
+                    </nav>
+                }
+            </div>
         </header>
         <main class="container-md">
             @RenderBody()

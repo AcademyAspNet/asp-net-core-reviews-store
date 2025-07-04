@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineStoreReviews.Models.Entities;
+using OnlineStoreReviews.Models.Utils;
 using OnlineStoreReviews.Services;
 
 namespace OnlineStoreReviews.Controllers
@@ -16,6 +17,12 @@ namespace OnlineStoreReviews.Controllers
         public IActionResult Index()
         {
             List<Product> products = _productService.GetProducts();
+
+            ViewBag.Breadcrumb = new List<BreadcrumbItem>()
+            {
+                new BreadcrumbItem("Список товаров", "Products", "Index")
+            };
+
             return View(products);
         }
 
@@ -26,8 +33,14 @@ namespace OnlineStoreReviews.Controllers
 
             Product? product = _productService.GetProductById((int) id);
 
-            if (id is null)
+            if (product is null)
                 return RedirectToAction("Index");
+
+            ViewBag.Breadcrumb = new List<BreadcrumbItem>()
+            {
+                new BreadcrumbItem("Список товаров", "Products", "Index"),
+                new BreadcrumbItem(product.Name, "Products", "GetById")
+            };
 
             return View(product);
         }

@@ -1,0 +1,30 @@
+﻿@using OnlineStoreReviews.Models.Views
+@model FeaturesViewModel
+
+@Html.CreateDateTime(DateTime.Now)
+
+@{
+    List<string> names = new List<string>()
+    {
+        "Tom",
+        "Bob",
+        "Alex"
+    };
+}
+
+@Html.CreateOrderedList(names)
+
+@using (Html.BeginForm("ProcessRequest", "Features", FormMethod.Post))
+{
+    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "form-label" })
+    @Html.DropDownListFor(model => model.FirstName, new SelectList(names), htmlAttributes: new { @class = "form-control" })
+
+    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "form-label" })
+    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+
+    <button type="submit">Отправить</button>
+    @Html.Raw("<p>Test!</p>")
+}
+
+@Html.ActionLink("Hello, world!", "GetById", "Products", new { id = 1 })
+<a asp-controller="Products" asp-action="GetById" asp-route-id="1">Hello, world!</a>

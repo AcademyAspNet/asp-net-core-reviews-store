@@ -3,6 +3,11 @@
 <p class="fs-4">Информация о товаре</p>
 <hr />
 
+<a class="btn btn-success" asp-controller="Products" asp-action="AddToCart" asp-route-id="@Model.Product.Id">
+    Добавить в корзину
+</a>
+<hr />
+
 <table class="table table-stri">
     <thead>
         <tr>

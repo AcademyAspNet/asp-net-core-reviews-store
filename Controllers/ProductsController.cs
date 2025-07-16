@@ -10,10 +10,12 @@ namespace OnlineStoreReviews.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductService _productService;
+        private readonly ICartService _cartService;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, ICartService cartService)
         {
             _productService = productService;
+            _cartService = cartService;
         }
 
         public IActionResult Index()
@@ -80,6 +82,23 @@ namespace OnlineStoreReviews.Controllers
                 return View("~/Views/Products/GetById.cshtml", model);
 
             return Content($"Author: {reviewDto.Author} / Text: {reviewDto.Text}");
+        }
+
+        [HttpGet]
+        public IActionResult AddToCart([FromRoute] int? id)
+        {
+            if (id is null)
+                return RedirectToAction("Index");
+
+            Product? product = _productService.GetProductById((int) id);
+
+            if (product is null)
+                return RedirectToAction("Index");
+
+            Cart cart = _cartService.GetCart();
+            cart.AddItem(product);
+
+            return RedirectToAction("GetById", new { id = id });
         }
     }
 }

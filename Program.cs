@@ -10,12 +10,15 @@ namespace OnlineStoreReviews
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSession();
 
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddSingleton<ICartService, CartService>();
 
             var app = builder.Build();
 
             app.UseStaticFiles();
+            app.UseSession();
 
             app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 

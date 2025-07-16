@@ -1,0 +1,25 @@
+﻿@using OnlineStoreReviews.Services
+
+@inject ICartService cartService
+@inject IProductService productService
+
+<p class="fs-4">Корзина</p>
+<hr />
+
+@{
+    Cart cart = cartService.GetCart();
+}
+
+<ol>
+    @foreach (CartItem cartItem in cart.Items)
+    {
+        Product? product = productService.GetProductById(cartItem.ProductId);
+
+        if (product == null)
+            continue;
+
+        <li>
+            @product.Name (@cartItem.Amount шт.)
+        </li>
+    }
+</ol>

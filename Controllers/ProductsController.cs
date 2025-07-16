@@ -70,6 +70,12 @@ namespace OnlineStoreReviews.Controllers
                 ReviewDTO = new ReviewDTO()
             };
 
+            ViewBag.Breadcrumb = new List<BreadcrumbItem>()
+            {
+                new BreadcrumbItem("Список товаров", "Products", "Index"),
+                new BreadcrumbItem(product.Name, "Products", "AddProductReview")
+            };
+
             if (!ModelState.IsValid)
                 return View("~/Views/Products/GetById.cshtml", model);
 
